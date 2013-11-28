@@ -13,4 +13,14 @@
 
 class BankAccount < ActiveRecord::Base
   belongs_to :user
+  has_many :transfers
+
+  def stripe_create(token)
+    response = Stripe::Recipient.create(
+        :name => self.name,
+        :type => "individual",
+        :bank_account => token,
+    )
+    response
+  end
 end

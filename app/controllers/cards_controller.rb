@@ -1,10 +1,11 @@
 class CardsController < ApplicationController
   before_action :set_card, only: [:show, :edit, :update, :destroy]
+  before_action :load_user
 
   # GET /cards
   # GET /cards.json
   def index
-    @cards = Card.all
+    @cards = @user.cards.all
   end
 
   # GET /cards/1
@@ -14,7 +15,7 @@ class CardsController < ApplicationController
 
   # GET /cards/new
   def new
-    @card = Card.new
+    @card = @user.cards.new
   end
 
   # GET /cards/1/edit
@@ -24,11 +25,14 @@ class CardsController < ApplicationController
   # POST /cards
   # POST /cards.json
   def create
-    @card = Card.new(card_params)
+    @card = @user.cards.new(card_params)
+
+    card_token = @user.add_card(params[:stripe_token])
+    @card.stripe_token = card_token
 
     respond_to do |format|
       if @card.save
-        format.html { redirect_to @card, notice: 'Card was successfully created.' }
+        format.html { redirect_to user_card_path(@user, @card), notice: 'Card was successfully created.' }
         format.json { render action: 'show', status: :created, location: @card }
       else
         format.html { render action: 'new' }
@@ -42,7 +46,7 @@ class CardsController < ApplicationController
   def update
     respond_to do |format|
       if @card.update(card_params)
-        format.html { redirect_to @card, notice: 'Card was successfully updated.' }
+        format.html { redirect_to user_card_path(@user, @card), notice: 'Card was successfully updated.' }
         format.json { head :no_content }
       else
         format.html { render action: 'edit' }
@@ -70,5 +74,9 @@ class CardsController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def card_params
       params.require(:card).permit(:user_id, :stripe_token, :description)
+    end
+
+    def load_user
+      @user = User.find(params[:user_id])
     end
 end

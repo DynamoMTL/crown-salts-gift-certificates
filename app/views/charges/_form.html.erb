@@ -1,31 +1,23 @@
-<%= form_for(@charge) do |f| %>
-  <% if @charge.errors.any? %>
+<%= form_for([@user, @card, @charge]) do |f| %>
+  <% if @card.errors.any? %>
     <div id="error_explanation">
-      <h2><%= pluralize(@charge.errors.count, "error") %> prohibited this charge from being saved:</h2>
+      <h2><%= pluralize(@card.errors.count, "error") %> prohibited this bank_account from being saved:</h2>
 
       <ul>
-      <% @charge.errors.full_messages.each do |msg| %>
-        <li><%= msg %></li>
-      <% end %>
+        <% @card.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
       </ul>
     </div>
   <% end %>
 
   <div class="field">
-    <%= f.label :card_id %><br>
-    <%= f.text_field :card_id %>
-  </div>
-  <div class="field">
-    <%= f.label :stripe_token %><br>
-    <%= f.text_field :stripe_token %>
+    <%= label_tag "amount" %>
+    <%= text_field_tag "amount", params[:amount] %>
   </div>
   <div class="field">
     <%= f.label :description %><br>
     <%= f.text_area :description %>
-  </div>
-  <div class="field">
-    <%= f.label :refunded %><br>
-    <%= f.check_box :refunded %>
   </div>
   <div class="actions">
     <%= f.submit %>

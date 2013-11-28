@@ -14,4 +14,18 @@
 
 class Transfer < ActiveRecord::Base
   belongs_to :bank_account
+
+  def initiate_transfer(amount)
+    Stripe::Transfer.create(
+        :amount => (amount.to_f * 100).to_i,
+        :currency => "usd",
+        :recipient => self.bank_account.user.stripe_recipient_token,
+        :description => self.description
+    )
+  end
+
+  def cancel
+    transfer = Stripe::Transfer.retrieve(self.stripe_token)
+    transfer.cancel
+  end
 end

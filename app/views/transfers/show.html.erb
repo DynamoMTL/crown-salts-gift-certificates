@@ -25,5 +25,6 @@
   <%= @transfer.status %>
 </p>
 
-<%= link_to 'Edit', edit_transfer_path(@transfer) %> |
-<%= link_to 'Back', transfers_path %>
+<%= link_to 'Edit', edit_user_bank_account_transfer_path(@user, @bank_account, @transfer) %> |
+<%= link_to 'Back', user_bank_account_transfers_path %> |
+<%= link_to 'Cancel Transfer', user_bank_account_transfer_cancel_path(@user, @bank_account, @transfer), method: :post %>

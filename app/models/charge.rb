@@ -13,4 +13,9 @@
 
 class Charge < ActiveRecord::Base
   belongs_to :card
+
+  def refund
+    ch = Stripe::Charge.retrieve(self.stripe_token)
+    ch.refund
+  end
 end

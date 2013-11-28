@@ -1,10 +1,11 @@
 class ChargesController < ApplicationController
   before_action :set_charge, only: [:show, :edit, :update, :destroy]
+  before_action :load_card
 
   # GET /charges
   # GET /charges.json
   def index
-    @charges = Charge.all
+    @charges = @card.charges.all
   end
 
   # GET /charges/1
@@ -14,7 +15,7 @@ class ChargesController < ApplicationController
 
   # GET /charges/new
   def new
-    @charge = Charge.new
+    @charge = @card.charges.new
   end
 
   # GET /charges/1/edit
@@ -24,11 +25,13 @@ class ChargesController < ApplicationController
   # POST /charges
   # POST /charges.json
   def create
-    @charge = Charge.new(charge_params)
+    stripe_charge = @card.charge(params[:amount], params[:charge][:description])
+    @charge = @card.charges.new(charge_params)
+    @charge.stripe_token = stripe_charge[:id]
 
     respond_to do |format|
       if @charge.save
-        format.html { redirect_to @charge, notice: 'Charge was successfully created.' }
+        format.html { redirect_to user_card_charge_path(@card.user, @card.id, @charge.id), notice: 'Charge was successfully created.' }
         format.json { render action: 'show', status: :created, location: @charge }
       else
         format.html { render action: 'new' }
@@ -51,6 +54,19 @@ class ChargesController < ApplicationController
     end
   end
 
+  def refund
+    @charge = Charge.find(params[:charge_id])
+    response = @charge.refund
+    @charge.refunded = response["refunded"]
+    @charge.save
+    if response["refunded"]
+      redirect_to user_card_charge_path(@card.user, @card.id, @charge.id), notice: 'Charge was successfully refunded.'
+    else
+      raise Exception.new(response.to_s)
+    end
+
+  end
+
   # DELETE /charges/1
   # DELETE /charges/1.json
   def destroy
@@ -71,4 +87,9 @@ class ChargesController < ApplicationController
     def charge_params
       params.require(:charge).permit(:card_id, :stripe_token, :description, :refunded)
     end
+
+  def load_card
+    @card = Card.find(params[:card_id])
+    @user = @card.user
+  end
 end

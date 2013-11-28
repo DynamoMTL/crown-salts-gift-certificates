@@ -20,5 +20,6 @@
   <%= @charge.refunded %>
 </p>
 
-<%= link_to 'Edit', edit_charge_path(@charge) %> |
-<%= link_to 'Back', charges_path %>
+<%= link_to 'Edit', edit_user_card_charge_path(@card.user, @card, @charge) %> |
+<%= link_to 'Back', user_card_charges_path(@card.user, @card) %> |
+<%= link_to 'Refund', user_card_charge_refund_path(@card.user, @card, @charge), method: :post %>

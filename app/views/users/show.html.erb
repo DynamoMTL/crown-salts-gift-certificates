@@ -10,10 +10,8 @@
   <%= @user.stripe_token %>
 </p>
 
-<p>
-  <strong>Stripe recipient token:</strong>
-  <%= @user.stripe_recipient_token %>
-</p>
-
 <%= link_to 'Edit', edit_user_path(@user) %> |
+<%= link_to 'Back', users_path %> |
+<%= link_to 'Cards', user_cards_path(@user) %> |
+<%= link_to 'Bank Accounts', user_bank_accounts_path(@user) %> |
 <%= link_to 'Back', users_path %>

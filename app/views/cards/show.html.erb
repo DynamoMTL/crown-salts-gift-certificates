@@ -2,7 +2,7 @@
 
 <p>
   <strong>User:</strong>
-  <%= @card.user %>
+  <%= link_to @card.user.name, @card.user %>
 </p>
 
 <p>
@@ -15,5 +15,6 @@
   <%= @card.description %>
 </p>
 
-<%= link_to 'Edit', edit_card_path(@card) %> |
-<%= link_to 'Back', cards_path %>
+<%= link_to 'Edit', edit_user_card_path(@user, @card) %> |
+<%= link_to 'Back', user_cards_path(@user, @card) %> |
+<%= link_to 'Charge', new_user_card_charge_path(@user, @card) %>
