@@ -36,3 +36,13 @@ rails g scaffold Transfer bank_account:references stripe_token:string descriptio
 
 rake db:migrate
 annotate --exclude tests,fixtures,factories
+
+Stripe valid test number
+
+CC: 4242424242424242
+
+
+Bank accounts:
+SSN: 000000000
+routing: 110000000
+account: 000123456789
