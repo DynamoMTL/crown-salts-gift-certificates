@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  bank_account_id: 
+  stripe_token: MyString
+  description: MyText
+  name: MyString
+  status: MyString
+
+two:
+  bank_account_id: 
+  stripe_token: MyString
+  description: MyText
+  name: MyString
+  status: MyString

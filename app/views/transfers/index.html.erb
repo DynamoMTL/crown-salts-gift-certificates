@@ -1,0 +1,35 @@
+<h1>Listing transfers</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Bank account</th>
+      <th>Stripe token</th>
+      <th>Description</th>
+      <th>Name</th>
+      <th>Status</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @transfers.each do |transfer| %>
+      <tr>
+        <td><%= transfer.bank_account %></td>
+        <td><%= transfer.stripe_token %></td>
+        <td><%= transfer.description %></td>
+        <td><%= transfer.name %></td>
+        <td><%= transfer.status %></td>
+        <td><%= link_to 'Show', transfer %></td>
+        <td><%= link_to 'Edit', edit_transfer_path(transfer) %></td>
+        <td><%= link_to 'Destroy', transfer, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Transfer', new_transfer_path %>

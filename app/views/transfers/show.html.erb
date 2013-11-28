@@ -1,0 +1,29 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Bank account:</strong>
+  <%= @transfer.bank_account %>
+</p>
+
+<p>
+  <strong>Stripe token:</strong>
+  <%= @transfer.stripe_token %>
+</p>
+
+<p>
+  <strong>Description:</strong>
+  <%= @transfer.description %>
+</p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @transfer.name %>
+</p>
+
+<p>
+  <strong>Status:</strong>
+  <%= @transfer.status %>
+</p>
+
+<%= link_to 'Edit', edit_transfer_path(@transfer) %> |
+<%= link_to 'Back', transfers_path %>

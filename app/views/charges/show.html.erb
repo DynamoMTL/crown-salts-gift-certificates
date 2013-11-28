@@ -1,0 +1,24 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Card:</strong>
+  <%= @charge.card %>
+</p>
+
+<p>
+  <strong>Stripe token:</strong>
+  <%= @charge.stripe_token %>
+</p>
+
+<p>
+  <strong>Description:</strong>
+  <%= @charge.description %>
+</p>
+
+<p>
+  <strong>Refunded:</strong>
+  <%= @charge.refunded %>
+</p>
+
+<%= link_to 'Edit', edit_charge_path(@charge) %> |
+<%= link_to 'Back', charges_path %>

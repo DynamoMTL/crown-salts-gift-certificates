@@ -1,0 +1,24 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>User:</strong>
+  <%= @bank_account.user %>
+</p>
+
+<p>
+  <strong>Stripe token:</strong>
+  <%= @bank_account.stripe_token %>
+</p>
+
+<p>
+  <strong>Description:</strong>
+  <%= @bank_account.description %>
+</p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @bank_account.name %>
+</p>
+
+<%= link_to 'Edit', edit_bank_account_path(@bank_account) %> |
+<%= link_to 'Back', bank_accounts_path %>

@@ -26,3 +26,13 @@ Things you may want to cover:
 
 Please feel free to use a different markup language if you do not plan to run
 <tt>rake doc:app</tt>.
+
+
+rails g scaffold User name:string stripe_token:string stripe_recipient_token:string
+rails g scaffold Card user:references stripe_token:string description:text
+rails g scaffold Charge card:references stripe_token:string description:text refunded:boolean
+rails g scaffold BankAccount user:references stripe_token:string description:text name:string
+rails g scaffold Transfer bank_account:references stripe_token:string description:text name:string status:string
+
+rake db:migrate
+annotate --exclude tests,fixtures,factories
